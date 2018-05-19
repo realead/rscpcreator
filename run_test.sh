@@ -2,7 +2,8 @@
 #
 # name_of_test:
 #          build
-#          distr
+#          exp_distr
+#          theo_distr
 #
 
 
