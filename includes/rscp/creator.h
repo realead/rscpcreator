@@ -4,6 +4,11 @@
 #include <random>
 #include <algorithm>
 
+#ifdef RSCP_CHECK
+  #include <cassert>
+  #include "utils.h"
+#endif
+
 //--------------- Interface:
 
 namespace rscp{
@@ -65,5 +70,11 @@ void rscp::creator<T,Generator>::next(std::vector<T> &result)
          ii=0;
       result[i]=iperm[ii];
    } 
+
+   //sanity check:
+   #ifdef RSCP_CHECK
+      assert(rscp::is_permutation(result));
+      assert(rscp::is_single_cycle(result));
+   #endif
 }
 

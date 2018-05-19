@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cassert>
 
+#define RSCP_CHECK
 #include <rscp/creator.h>
 #include <rscp/utils.h>
 
