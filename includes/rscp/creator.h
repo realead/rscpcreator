@@ -4,10 +4,8 @@
 #include <random>
 #include <algorithm>
 
-#ifdef RSCP_CHECK
-  #include <cassert>
-  #include "utils.h"
-#endif
+#include "details/creator_details.h"
+
 
 //--------------- Interface:
 
@@ -58,23 +56,6 @@ void rscp::creator<T,Generator>::next(std::vector<T> &result)
       std::swap(perm[k], perm[for_swap]);
    }
 
-   //inverse:
-   for(T i=0;i<SIZE;i++){
-      iperm[perm[i]]=i;
-   }
-
-   //result=P^{-1}*Shift*P
-   for(T i=0;i<SIZE;i++){
-      T ii=perm[i]+1;
-      if(ii==SIZE)//mod SIZE
-         ii=0;
-      result[i]=iperm[ii];
-   } 
-
-   //sanity check:
-   #ifdef RSCP_CHECK
-      assert(rscp::is_permutation(result));
-      assert(rscp::is_single_cycle(result));
-   #endif
+   details::cyclic_from_permutation(perm, iperm, result);
 }
 
